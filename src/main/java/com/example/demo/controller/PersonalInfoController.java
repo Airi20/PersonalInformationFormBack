@@ -18,9 +18,13 @@ public class PersonalInfoController {
     }
 
     @PostMapping
-    public PersonalInfo savePersonalInfo(@RequestBody PersonalInfo info) {
-        return repository.save(info);
+    public Map<String, String> savePersonalInfo(@RequestBody PersonalInfo info) {
+        repository.save(info);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "保存完了しました！");
+        return response;
     }
+
 
     
 
