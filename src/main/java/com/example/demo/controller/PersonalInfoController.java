@@ -3,6 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.model.PersonalInfo;
 import com.example.demo.repository.PersonalInfoRepository;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import java.util.HashMap;
+
 
 import java.util.List;
 
