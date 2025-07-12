@@ -1,23 +1,31 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.PersonalInfo;
+import com.example.demo.repository.PersonalInfoRepository;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/personal-info")
+@CrossOrigin(origins = "*") // ← フロントと通信できるように（必要に応じてドメイン指定）
 public class PersonalInfoController {
 
-    private final List<Map<String, Object>> submissions = new ArrayList<>();
+    private final PersonalInfoRepository repository;
 
-    @PostMapping
-    public Map<String, String> receivePersonalInfo(@RequestBody Map<String, Object> requestData) {
-        submissions.add(requestData);
-        System.out.println("受け取ったデータ：" + requestData);
-        return Map.of("message", "データ受け取りました！");
+    public PersonalInfoController(PersonalInfoRepository repository) {
+        this.repository = repository;
     }
 
+    @PostMapping
+    public PersonalInfo savePersonalInfo(@RequestBody PersonalInfo info) {
+        return repository.save(info);
+    }
+
+    
+
     @GetMapping
-    public List<Map<String, Object>> getAllSubmissions() {
-        return submissions;
+    public List<PersonalInfo> getAll() {
+        return repository.findAll();
     }
 }
